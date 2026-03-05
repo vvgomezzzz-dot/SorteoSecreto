@@ -4,7 +4,7 @@ public class Int{
         Scanner in=new Scanner (System.in);
         int option;
         do { 
-            System.out.println("Secret Santa Raffle System");
+            System.out.println("----Secret Santa Raffle System----");
             System.out.println("1. Register Raffle Information");
             System.out.println("2. Register Participants");
             System.out.println("3. List Participants");
@@ -18,6 +18,7 @@ public class Int{
             switch(option){
                 case 1: 
                     System.out.println("Option 1 selected - Register Raffle Information");
+                    registerRaffle(in);
                     break;
                 case 2: 
                     System.out.println("Option 2 selected - Register Participants");
@@ -40,5 +41,41 @@ public class Int{
 
         } while (option!=6);
         in.close();
+    }
+/**
+Method Register Raffle
+What does it do? Registers raffle information that the user inputs, 
+such as raffle name, description, budget, and event date.
+
+@param Scanner in: Scanner object used to read user input.
+*/
+public static void registerRaffle(Scanner in){
+        System.out.println("\n----Register Raffle----");
+    
+        System.out.print("Enter raffle name: ");
+        String name = in.nextLine();
+            
+        System.out.print("Enter raffle description: ");
+        String desc = in.nextLine();
+            
+        System.out.print("Enter budget per gift: ");
+        double budget = in.nextDouble();
+        in.nextLine();
+            
+        System.out.print("Enter event year: ");
+        int year = in.nextInt();
+            
+        System.out.print("Enter event month (1-12): ");
+        int month = in.nextInt();
+                
+        System.out.print("Enter event day: ");
+        int day = in.nextInt();
+        in.nextLine(); 
+
+        System.out.println("Raffle registered successfully!");
+        System.out.println("Name: " + name);
+        System.out.println("Description: " + desc);
+        System.out.println("Budget: $" + budget);
+        System.out.println("Date: " + year + "-" + month + "-" + day);
     }
 }
