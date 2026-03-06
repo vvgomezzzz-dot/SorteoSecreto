@@ -6,6 +6,7 @@ public class Int{
         int option;
         String[] participants = null;  
         String[] assignments = null;
+        String status = "Created";
 
         do { 
             System.out.println("\n----Secret Santa Raffle System----");
@@ -35,9 +36,13 @@ public class Int{
                 case 4: 
                     System.out.println("Option 4 selected - Generate Secret Santa");
                     assignments = generateSecretSanta(participants);
-                    break;     
+                    if (assignments != null) {
+                        status = "Done";
+                    }
+                    break;    
                 case 5: 
                     System.out.println("Option 5 selected - Show Raffle Summary");
+                    showSummary(participants, assignments, status);
                     break; 
                 case 6: 
                     System.out.println("Exit Completed.");
@@ -203,5 +208,41 @@ Returns null if participants is null or has less than 2 people.
         }
         System.out.println("Secret Santa assignments generated successfully.");
         return assigned;
+    }
+/**
+Method Show Summary
+What does it do? Displays all participants. If the raffle has been generated 
+(status = "Done"), it also shows each participant and their secret friend.
+If the raffle hasn't been generated yet, it shows an error message.
+
+@param String[] participants: Array of participant names
+@param String[] assignments: Array of secret friend assignments
+@param String status: Current status of the raffle ("Created" or "Done")
+*/
+    public static void showSummary(String[] participants, String[] assignments, String status) {
+        System.out.println("\n---- Raffle Summary ----");
+        
+        System.out.println("Status: " + status);
+
+        if (participants == null || participants.length == 0) {
+            System.out.println("No participants registered yet.");
+            return;
+        }
+        System.out.println("\nParticipants (" + participants.length + "):");
+        for (int i = 0; i < participants.length; i++) {
+            System.out.println("  " + (i + 1) + ". " + participants[i]);
+        }
+        if (status.equals("Done")) {
+            if (assignments != null && assignments.length == participants.length) {
+                System.out.println("\nSecret Santa Assignments:");
+                for (int i = 0; i < participants.length; i++) {
+                    System.out.println("  " + participants[i] + " -> " + assignments[i]);
+                }
+            } else {
+                System.out.println("\nError with assignments data");
+            }
+        } else {
+            System.out.println("\nError: Raffle has not been generated yet. Please select option 4 first.");
+        }
     }
 }
