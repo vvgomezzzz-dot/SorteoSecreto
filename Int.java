@@ -29,6 +29,7 @@ public class Int{
                     break;
                 case 3: 
                     System.out.println("Option 3 selected - List Participants");
+                    listParticipants(participants);
                     break;    
                 case 4: 
                     System.out.println("Option 4 selected - Generate Secret Santa");
@@ -137,5 +138,24 @@ It loops through the array and compares each name with the one we're trying to a
             }
         }
         return false;  
+    }
+/**
+Method List Participants
+What does it do? Displays the complete list of registered participants 
+with a consecutive number next to each name. If no participants are registered,
+it shows a message saying no participants have been registered yet.
+
+@param String[] participants: Array containing all participant names
+*/
+    public static void listParticipants(String[] participants) {
+        System.out.println("\n---- Participants List ----");
+
+        if (participants == null || participants.length == 0) {
+            System.out.println("No participants have been registered yet.");
+            return; 
+        }
+        for (int i = 0; i < participants.length; i++) {
+            System.out.println((i + 1) + ". " + participants[i]);
+        }
     }
 }
