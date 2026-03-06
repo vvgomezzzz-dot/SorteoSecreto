@@ -1,7 +1,118 @@
+/*
+ * Secret Santa Raffle System - Phase 1
+ * 
+ * General Problem Description:
+ * This program manages a Secret Santa raffle for events. It allows an organizer
+ * to register one raffle with its details (name, description, budget, date),
+ * register multiple participants with duplicate validation, display the participant list,
+ * randomly generate secret friend assignments ensuring no self-assignments or repeats,
+ * and show a summary of the raffle results.
+ * 
+ * Requirement 1: Register Raffle Information
+ * Description: Allows user to register information for one raffle including name,
+ *              description, budget, and event date using LocalDate.
+ * Inputs: 
+ *   - raffle name: String
+ *   - description: String
+ *   - budget: double
+ *   - event year: int
+ *   - event month: int
+ *   - event day: int
+ * Outputs: 
+ *   - Confirmation message with all entered data: String
+ * Example:
+ *   Enter raffle name: Christmas Party
+ *   Enter description: School gift exchange
+ *   Enter budget per gift: 15.50
+ *   Enter event year: 2026
+ *   Enter event month: 12
+ *   Enter event day: 20
+ *   Output: Raffle registered successfully! 
+ *           Name: Christmas Party
+ *           Description: School gift exchange
+ *           Budget: $15.5
+ *           Date: 2026-12-20
+ * 
+ * Requirement 2: Register Participants
+ * Description: Asks for number of participants and then registers each name.
+ * Inputs:
+ *   - number of participants: int
+ *   - participant names: String (multiple)
+ * Outputs:
+ *   - List of all registered participants with numbers: String
+ * Example:
+ *   Enter number of participants: 3
+ *   Enter participant 1 name: Ana
+ *   Enter participant 2 name: Carlos
+ *   Enter participant 3 name: Maria
+ *   Output: 3 participants registered successfully!
+ *           Participants list:
+ *           1. Ana
+ *           2. Carlos
+ *           3. Maria
+ * 
+ * Requirement 3: Validate Participant Information
+ * Description: Ensures no duplicate names are registered using case-insensitive comparison.
+ * Inputs:
+ *   - name to check: String
+ *   - existing participants array: String[]
+ *   - current count: int
+ * Outputs:
+ *   - Error message if duplicate found: String
+ * Example:
+ *   Enter participant 3 name: Ana
+ *   Output: Error: 'Ana' already exists! Please enter a different name.
+ * 
+ * Requirement 4: List/Consult Participants
+ * Description: Displays all registered participants with consecutive numbers.
+ * Inputs:
+ *   - participants array: String[]
+ * Outputs:
+ *   - Numbered list of participants: String
+ * Example:
+ *   Output: ---- Participants List ----
+ *           1. Ana
+ *           2. Carlos
+ *           3. Maria
+ * 
+ * Requirement 5: Generate Secret Santa
+ * Description: Randomly assigns each participant a secret friend using Random class,
+ *              ensuring no self-assignments and no repeats.
+ * Inputs:
+ *   - participants array: String[]
+ * Outputs:
+ *   - Confirmation message: String
+ *   - Assignments array: String[] (returned)
+ * Example:
+ *   Output: Secret Santa assignments generated successfully.
+ * 
+ * Requirement 6: Show Raffle Summary
+ * Description: Displays all participants and their secret friends if raffle was generated.
+ * Inputs:
+ *   - participants array: String[]
+ *   - assignments array: String[]
+ *   - status: String ("Created" or "Done")
+ * Outputs:
+ *   - Summary with participants and assignments (if done): String
+ *   - Error message if raffle not generated: String
+ * Example (if done):
+ *   Output: ---- Raffle Summary ----
+ *           Status: Done
+ *           Participants (3):
+ *             1. Ana
+ *             2. Carlos
+ *             3. Maria
+ *           Secret Santa Assignments:
+ *             Ana -> Carlos
+ *             Carlos -> Maria
+ *             Maria -> Ana
+ * Example (if not done):
+ *   Output: Error: Raffle has not been generated yet. Please select option 4 first.
+ */
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.Scanner;
-public class Int{
+public class SorteoSecreto{
     public static void main (String[]args){
         Scanner in=new Scanner (System.in);
 
@@ -206,9 +317,9 @@ Returns null if participants is null or has less than 2 people.
             available[randomIndex] = false;
         }
         if (assigned[n-1].equals(participants[n-1])) {
-        String temp = assigned[0];
-        assigned[0] = assigned[n-1];
-        assigned[n-1] = temp;
+            String temp = assigned[0];
+            assigned[0] = assigned[n-1];
+            assigned[n-1] = temp;
         }
         System.out.println("Secret Santa assignments generated successfully.");
         return assigned;
