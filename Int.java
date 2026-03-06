@@ -5,6 +5,7 @@ public class Int{
 
         int option;
         String[] participants = null;  
+        String[] assignments = null;
 
         do { 
             System.out.println("\n----Secret Santa Raffle System----");
@@ -33,6 +34,7 @@ public class Int{
                     break;    
                 case 4: 
                     System.out.println("Option 4 selected - Generate Secret Santa");
+                    assignments = generateSecretSanta(participants);
                     break;     
                 case 5: 
                     System.out.println("Option 5 selected - Show Raffle Summary");
@@ -91,7 +93,7 @@ Then it shows the complete list of registered participants.
 Then it returns the array to main. 
 
 @param Scanner in: Scanner used to read user input.
-@return String[]: Array containing all participant names
+@return String[]: Array containing all participant names in order entered. Returns a new array each time method is called.
 */
     public static String[] registerParticipants(Scanner in){
         System.out.println("\n----Register Participants----");
@@ -129,7 +131,7 @@ It loops through the array and compares each name with the one we're trying to a
 @param String name: The name to check for duplicates
 @param String[] participants: The array of existing participant names
 @param int currentCount: How many names are currently in the array
-@return boolean: true if name is duplicate, false if name is available
+@return boolean: true if name is duplicate (already exists in array), false if name is available (not found).
 */
     public static boolean infoValidation(String name, String[] participants, int currentCount) {
         for (int i = 0; i < currentCount; i++) {
@@ -157,5 +159,49 @@ it shows a message saying no participants have been registered yet.
         for (int i = 0; i < participants.length; i++) {
             System.out.println((i + 1) + ". " + participants[i]);
         }
+    }
+/**
+Method Generate Secret Santa
+What does it do? Randomly assigns each participant a secret friend.
+It makes sure no one is assigned to themselves and no repeats.
+Returns an array where the index matches the participant and the value is their assigned friend.
+
+@param String[] participants: Array containing all participant names
+@return String[]: Array where position i contains the secret friend for participant i. 
+Returns null if participants is null or has less than 2 people.
+*/
+    public static String[] generateSecretSanta(String[] participants) {
+        System.out.println("\n---- Generate Secret Santa ----");
+        
+        if (participants == null || participants.length < 2) {
+            System.out.println("Error: Need at least 2 participants to generate a secret santa.");
+            return null;
+        }
+        int n = participants.length;
+        String[] assigned = new String[n];
+        boolean[] available = new boolean[n];
+        
+        for (int i = 0; i < n; i++) {
+            available[i] = true;
+        }
+        java.util.Random random = new java.util.Random();
+        
+        for (int i = 0; i < n; i++) {
+            int randomIndex;
+        
+            do {
+                randomIndex = random.nextInt(n);
+            } while (!available[randomIndex] || randomIndex == i);
+            
+            assigned[i] = participants[randomIndex];
+            available[randomIndex] = false;
+        }
+        if (assigned[n-1].equals(participants[n-1])) {
+        String temp = assigned[0];
+        assigned[0] = assigned[n-1];
+        assigned[n-1] = temp;
+        }
+        System.out.println("Secret Santa assignments generated successfully.");
+        return assigned;
     }
 }
