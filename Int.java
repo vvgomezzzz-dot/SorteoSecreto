@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.util.Random;
 import java.util.Scanner;
 public class Int{
     public static void main (String[]args){
@@ -84,11 +86,13 @@ such as raffle name, description, budget, and event date.
         int day = in.nextInt();
         in.nextLine(); 
 
+        LocalDate eventDate = LocalDate.of(year, month, day);
+
         System.out.println("Raffle registered successfully!");
         System.out.println("Name: " + name);
         System.out.println("Description: " + desc);
         System.out.println("Budget: $" + budget);
-        System.out.println("Date: " + year + "-" + month + "-" + day);
+        System.out.println("Date: "+eventDate);
     }
 /**
 Method Register Participants
@@ -189,7 +193,7 @@ Returns null if participants is null or has less than 2 people.
         for (int i = 0; i < n; i++) {
             available[i] = true;
         }
-        java.util.Random random = new java.util.Random();
+        Random random = new Random();
         
         for (int i = 0; i < n; i++) {
             int randomIndex;
