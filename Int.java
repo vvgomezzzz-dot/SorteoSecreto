@@ -87,8 +87,10 @@ Method Register Participants
 What does it do? Asks number of participants, their names,
 and saves all the names in an array. 
 Then it shows the complete list of registered participants.
+Then it returns the array to main. 
 
 @param Scanner in: Scanner used to read user input.
+@return String[]: Array containing all participant names
 */
     public static String[] registerParticipants(Scanner in){
         System.out.println("\n----Register Participants----");
@@ -97,18 +99,43 @@ Then it shows the complete list of registered participants.
         int numParticipants = in.nextInt();
         in.nextLine(); 
                 
-        String[] participants = new String[numParticipants];  // Named 'participants'
+        String[] participants = new String[numParticipants];  
+        int currentCount = 0;
 
-        for (int i = 0; i < numParticipants; i++) {
-            System.out.print("Enter participant " + (i + 1) + " name: ");
-            participants[i] = in.nextLine();
-        }
+        while (currentCount < numParticipants) {
+            System.out.print("Enter participant " + (currentCount + 1) + " name: ");
+            String name = in.nextLine();
         
+            if (infoValidation(name, participants, currentCount)) {
+                System.out.println("Error: '" + name + "' already exists! Please enter a different name.");
+            } else {
+                participants[currentCount] = name;
+                currentCount++;  
+            }
+        }
         System.out.println("\n" + numParticipants + " participants registered successfully!");
         System.out.println("Participants list:");
         for (int i = 0; i < numParticipants; i++) {
             System.out.println((i + 1) + ". " + participants[i]);
         }
         return participants;
+    }
+/**
+Method Info Validation
+What does it do? Checks if a given name already exists in the participants array.
+It loops through the array and compares each name with the one we're trying to add.
+
+@param String name: The name to check for duplicates
+@param String[] participants: The array of existing participant names
+@param int currentCount: How many names are currently in the array
+@return boolean: true if name is duplicate, false if name is available
+*/
+    public static boolean infoValidation(String name, String[] participants, int currentCount) {
+        for (int i = 0; i < currentCount; i++) {
+            if (participants[i].equalsIgnoreCase(name)) {
+                return true;  
+            }
+        }
+        return false;  
     }
 }
