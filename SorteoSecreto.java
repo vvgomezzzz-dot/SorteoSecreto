@@ -1,6 +1,5 @@
 /*
  * Secret Santa Raffle System - Phase 1
- * 
  * General Problem Description:
  * This program manages a Secret Santa raffle for events. It allows an organizer
  * to register one raffle with its details (name, description, budget, date),
